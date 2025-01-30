@@ -147,9 +147,9 @@ export async function createPullRequest(inputs: Inputs): Promise<void> {
           inputs.branch = `${inputs.branch}-${utils.randomString()}`
           break
         default:
-          throw new Error(
-            `Branch suffix '${inputs.branchSuffix}' is not a valid value. Unable to continue.`
-          )
+          // Use the supplied suffix as is
+          inputs.branch = inputs.branchSuffix
+          break
       }
     }
 
