@@ -79,7 +79,7 @@ export class GitHubHelper {
         title: inputs.title,
         head: headBranch,
         head_repo: headRepository,
-        base: inputs.base,
+        base: inputs.targetBranch ?? inputs.base,
         body: inputs.body,
         draft: inputs.draft.value,
         maintainer_can_modify: inputs.maintainerCanModify

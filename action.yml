@@ -82,6 +82,9 @@ inputs:
   maintainer-can-modify:
     description: 'Indicates whether maintainers can modify the pull request.'
     default: true
+  target-branch:
+    description: 'The target branch for the pull request.'
+    default: 'main'
 outputs:
   pull-request-number:
     description: 'The pull request number'

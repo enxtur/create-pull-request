@@ -1303,12 +1303,13 @@ class GitHubHelper {
     }
     createOrUpdate(inputs, baseRepository, headRepository) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const [headOwner] = headRepository.split('/');
             const headBranch = `${headOwner}:${inputs.branch}`;
             // Try to create the pull request
             try {
                 core.info(`Attempting creation of pull request`);
-                const { data: pull } = yield this.octokit.rest.pulls.create(Object.assign(Object.assign({}, this.parseRepository(baseRepository)), { title: inputs.title, head: headBranch, head_repo: headRepository, base: inputs.base, body: inputs.body, draft: inputs.draft.value, maintainer_can_modify: inputs.maintainerCanModify }));
+                const { data: pull } = yield this.octokit.rest.pulls.create(Object.assign(Object.assign({}, this.parseRepository(baseRepository)), { title: inputs.title, head: headBranch, head_repo: headRepository, base: (_a = inputs.targetBranch) !== null && _a !== void 0 ? _a : inputs.base, body: inputs.body, draft: inputs.draft.value, maintainer_can_modify: inputs.maintainerCanModify }));
                 core.info(`Created pull request #${pull.number} (${headBranch} => ${inputs.base})`);
                 return {
                     number: pull.number,
@@ -1610,7 +1611,8 @@ function run() {
                 teamReviewers: utils.getInputAsArray('team-reviewers'),
                 milestone: Number(core.getInput('milestone')),
                 draft: getDraftInput(),
-                maintainerCanModify: core.getBooleanInput('maintainer-can-modify')
+                maintainerCanModify: core.getBooleanInput('maintainer-can-modify'),
+                targetBranch: core.getInput('target-branch'),
             };
             core.debug(`Inputs: ${(0, util_1.inspect)(inputs)}`);
             if (!inputs.token) {

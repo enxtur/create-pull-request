@@ -37,6 +37,7 @@ export interface Inputs {
     always: boolean
   }
   maintainerCanModify: boolean
+  targetBranch: string
 }
 
 export async function createPullRequest(inputs: Inputs): Promise<void> {
